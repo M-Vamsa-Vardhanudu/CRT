@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Matrix Input</title>
+</head>
+<body>
+
+<form id="matrixForm">
+  <table>
+    <tr>
+      <td><input type="number"/></td><td><input type="number"/></td><td><input type="number"/></td>
+    </tr>
+    <tr>
+      <td><input type="number"/></td><td><input type="number"/></td><td><input type="number"/></td>
+    </tr>
+    <tr>
+      <td><input type="number"/></td><td><input type="number"/></td><td><input type="number"/></td>
+    </tr>
+  </table>
+
+  <button type="submit">Send</button>
+</form>
+
+<pre id="output"></pre>
+
+<script>
+document.getElementById("matrixForm").onsubmit = async (e) => {
+  e.preventDefault();
+
+  const rows = [...document.querySelectorAll("tr")];
+  const matrix = rows.map(r =>
+    [...r.querySelectorAll("input")].map(i => Number(i.value))
+  );
+
+  const res = await fetch("http://localhost:3000/matrix", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ matrix })
+  });
+
+  const data = await res.json();
+  document.getElementById("output").textContent =
+    "Min Path Sum = " + data.minPathSum;
+};
+</script>
+
+</body>
+</html>
