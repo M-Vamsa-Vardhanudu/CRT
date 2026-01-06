@@ -32,11 +32,12 @@ document.getElementById("matrixForm").onsubmit = async (e) => {
     [...r.querySelectorAll("input")].map(i => Number(i.value))
   );
 
-  const res = await fetch("http://localhost:3000/matrix", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ matrix })
-  });
+const res = await fetch("/matrix", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ matrix })
+});
+
 
   const data = await res.json();
   document.getElementById("output").textContent =
