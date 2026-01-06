@@ -6,7 +6,7 @@ app.use(cors());
 app.use(express.json());  
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
-
+const PORT = process.env.PORT || 3000;
 app.post("/matrix", (req, res) => {
   // Convert strings to numbers
   const grid = req.body.matrix.map(row =>
@@ -21,7 +21,7 @@ app.post("/matrix", (req, res) => {
   });
 });
 
-app.listen(3000, () => {
+app.listen(PORT, () => {
   console.log("Server running on port 3000");
 });
 
